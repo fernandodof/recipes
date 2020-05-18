@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const FiltersScreen = props => {
 	return (
 		<View style={styles.screen}>
-			<Text>Category Recipe Screen</Text>
+			<Text>Filters Screen</Text>
 		</View>
 	);
 };
