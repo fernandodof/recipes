@@ -1,18 +1,29 @@
 import React from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 
-import screens from './../navigation/screens';
+import Screens from './../navigation/screens';
+import { CATEGORIES } from '../data/data';
 
 const RecipeScreen = props => {
+	const categoryId = props.navigation.getParam('categoryId');
 
-	const getToDetails = () => props.navigation.navigate(screens.RECIPE_DETAILS);
+	const selectedCategory = CATEGORIES.find(category => category.id === categoryId);
 
 	return (
 		<View style={styles.screen}>
-			<Text>Recipes Screen</Text>
-			<Button title='go to details' onPress={getToDetails.bind(this)}></Button>
+			<Text>{selectedCategory.title}</Text>
+			<Button title='go to details'></Button>
 		</View>
 	);
+};
+
+RecipeScreen.navigationOptions = navigationData => {
+	const categoryId = navigationData.navigation.getParam('categoryId');
+	const selectedCategory = CATEGORIES.find(category => category.id === categoryId);
+
+	return {
+		headerTitle: selectedCategory.title
+	};
 };
 
 const styles = StyleSheet.create({

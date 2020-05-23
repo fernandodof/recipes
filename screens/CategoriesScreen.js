@@ -1,16 +1,25 @@
 import React from 'react';
-import { StyleSheet, FlatList, View, Text } from 'react-native';
+import {
+	StyleSheet,
+	FlatList,
+	View,
+	Text,
+	TouchableOpacity
+} from 'react-native';
+
 import { CATEGORIES } from '../data/data';
-
-// import screens from './../navigation/screens';
-
-const renderGrdItem = itemData => (
-	<View style={styles.gridItem}>
-		<Text>{itemData.item.title}</Text>
-	</View>
-);
+import Screens from './../navigation/screens';
 
 const CategoriesScreen = props => {
+	const renderGrdItem = itemData => (
+		<TouchableOpacity style={styles.gridItem}
+			onPress={() => props.navigation.navigate(Screens.RECIPES, { categoryId: itemData.item.id })} >
+			<View>
+				<Text>{itemData.item.title}</Text>
+			</View>
+		</TouchableOpacity>
+	);
+
 	// const goToRecipes = () => props.navigation.navigate(screens.RECIPES);
 	return <FlatList data={CATEGORIES} renderItem={renderGrdItem} numColumns={2} ></FlatList>
 };
