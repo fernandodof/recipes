@@ -1,18 +1,18 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 
-import Screens from './../navigation/screens';
-import { CATEGORIES } from '../data/data';
+import { CATEGORIES, RECIPES } from '../data/data';
+import Recipe from '../components/Recipe';
 
 const RecipeScreen = props => {
 	const categoryId = props.navigation.getParam('categoryId');
+	const recipes = RECIPES.filter(recipe => recipe.categoryIds.includes(categoryId));
 
-	const selectedCategory = CATEGORIES.find(category => category.id === categoryId);
+	const renderRecipe = itemData => <Recipe item={itemData.item} onSlect={() => { }}></Recipe>;
 
 	return (
 		<View style={styles.screen}>
-			<Text>{selectedCategory.title}</Text>
-			<Button title='go to details'></Button>
+			<FlatList style={styles.list} data={recipes} renderItem={renderRecipe}></FlatList>
 		</View>
 	);
 };
@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignContent: 'center'
+	},
+	list: {
+		width: '100%'
 	}
 });
 
