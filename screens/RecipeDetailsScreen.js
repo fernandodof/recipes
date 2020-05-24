@@ -1,17 +1,32 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+
+import { RECIPES } from './../data/data';
+import CustomHeaderButton from '../components/HeaderButton';
 
 const RecipeDetailsScreen = props => {
-
-	const goToCategories = () => props.navigation.popToTop();
+	const recipeId = props.navigation.getParam('recipeId');
+	const seletedRecipe = RECIPES.find(recipe => recipe.id = recipeId);
 
 	return (
 		<View style={styles.screen}>
-			<Text>Recipe details screen</Text>
-			<Button title='Go to categories' onPress={goToCategories.bind(this)}></Button>
+			<Text>{seletedRecipe.title}</Text>
 		</View>
 	);
 };
+
+RecipeDetailsScreen.navigationOptions = navigationData => {
+	const recipeId = navigationData.navigation.getParam('recipeId');
+	const seletedRecipe = RECIPES.find(recipe => recipe.id = recipeId);
+
+	return {
+		headerTitle: seletedRecipe.title,
+		headerRight: () => <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+			<Item title='Favorite' iconName='ios-star-outline' onPress={() => console.log('Mark favorite')}></Item>
+		</HeaderButtons>
+	};
+}
 
 const styles = StyleSheet.create({
 	screen: {

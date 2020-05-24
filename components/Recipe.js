@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 	recipe: {
 		height: 200,
 		width: '100%',
-		backgroundColor: Colors.temptress
+		backgroundColor: 'black'
 	},
 	recipeRow: {
 		flexDirection: 'row'
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 		height: '85%'
 	},
 	titleContainer: {
-		backgroundColor: `rgba(${Colors.secondaryRGB.red}, ${Colors.secondaryRGB.green}, ${Colors.secondaryRGB.blue}, 0.7)`,
+		backgroundColor: `rgba(${Colors.secondaryDarkRGB.red}, ${Colors.secondaryDarkRGB.green}, ${Colors.secondaryDarkRGB.blue}, 0.7)`,
 		paddingVertical: 5,
 		paddingHorizontal: 10
 	},

@@ -1,5 +1,6 @@
 export default {
 	CATEGORIES: 'Categories',
 	RECIPES: 'Recipes',
-	RECIPE_DETAILS: 'RecipeDetails'
+	RECIPE_DETAILS: 'RecipeDetails',
+	FAVORITES: 'Favorites'
 }

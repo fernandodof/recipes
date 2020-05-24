@@ -1,11 +1,15 @@
 export default {
-	primary: '#b2022e',
-	secondary: '#590117',
-	accent: '#ff6f00',
-	secondaryRGB: {
-		red: 89,
-		green: 1,
-		blue: 23
-	},
-	temptress: '#35000D'
+	primary: '#d32f2f',
+	primaryLight: '#ff6659',
+	primaryDark: '#9a0007',
+	secondary: '#f443363',
+	secondaryLight: '#ff7961',
+	secondaryDark: '#ba000d',
+	primaryText: '#ffffff',
+	secondaryText: '#000000',
+	secondaryDarkRGB: {
+		red: 154,
+		green: 0,
+		blue: 7
+	}
 };

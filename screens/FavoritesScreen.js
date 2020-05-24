@@ -1,20 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+
+import RecipeList from './../components/RecipeList';
+import { RECIPES } from './../data/data';
 
 const FavoritesScreen = props => {
-	return (
-		<View style={styles.screen}>
-			<Text>Favorites Screen</Text>
-		</View>
-	);
+	const recipes = RECIPES.slice(0, 2);
+
+	return <RecipeList listData={recipes} navigation={props.navigation}></RecipeList>
 };
 
-const styles = StyleSheet.create({
-	screen: {
-		flex: 1,
-		justifyContent: 'center',
-		alignContent: 'center'
-	}
-});
 
 export default FavoritesScreen;
