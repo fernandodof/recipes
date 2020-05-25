@@ -1,7 +1,6 @@
 import React from 'react';
 import {
 	View,
-	Text,
 	StyleSheet,
 	TouchableNativeFeedback,
 	TouchableOpacity,
@@ -10,6 +9,7 @@ import {
 } from 'react-native';
 
 import Colors from '../constants/Colors';
+import DefaultText from './DefaultText';
 
 const Recipe = props => {
 	const RecipeComponent = Platform.OS === 'android' && Platform.Version >= 21 ? TouchableNativeFeedback : TouchableOpacity;
@@ -21,14 +21,14 @@ const Recipe = props => {
 				<View style={{ ...styles.recipeRow, ...styles.recipeHeader }}>
 					<ImageBackground source={{ uri: item.imageUrl }} style={styles.bgIamge}>
 						<View style={styles.titleContainer}>
-							<Text style={styles.title} numberOfLines={1}>{item.title}</Text>
+							<DefaultText style={styles.title} numberOfLines={1}>{item.title}</DefaultText>
 						</View>
 					</ImageBackground>
 				</View>
 				<View style={{ ...styles.recipeRow, ...styles.recipeDetail }}>
-					<Text style={styles.recipeDetailText}>{item.duration}</Text>
-					<Text style={styles.recipeDetailText}>{item.complexity.toUpperCase()}</Text>
-					<Text style={styles.recipeDetailText}>{item.affordability}</Text>
+					<DefaultText style={styles.recipeDetailText}>{item.duration}m</DefaultText>
+					<DefaultText style={styles.recipeDetailText}>{item.complexity.toUpperCase()}</DefaultText>
+					<DefaultText style={styles.recipeDetailText}>{item.affordability}</DefaultText>
 				</View>
 			</View>
 		</RecipeComponent>

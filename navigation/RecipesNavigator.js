@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -7,7 +7,6 @@ import { createMaterialBottomTabNavigator } from 'react-navigation-material-bott
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { Ionicons } from '@expo/vector-icons';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-
 
 import CategoriesScreen from '../screens/CategoriesScreen';
 import RecipeScreen from '../screens/RecipeScreen';
@@ -26,6 +25,12 @@ const isAndroid = Platform.OS === 'android';
 const defaultNavigationOptions = {
 	headerStyle: {
 		backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
+	},
+	headerTitleStyle: {
+		fontFamily: 'open-sans'
+	},
+	headerBackStyle: {
+		fontFamily: 'open-sans'
 	},
 	headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
 };
@@ -73,7 +78,8 @@ const tabConfig = {
 		navigationOptions: {
 			tabBarLabel: 'Recipes',
 			tabBarIcon: tabInfo => <Ionicons name='ios-restaurant' size={25} color={tabInfo.tintColor}></Ionicons>,
-			tabBarColor: Colors.primary
+			tabBarColor: Colors.primary,
+			tabBarLabel: isAndroid ? <Text style={{ fontFamily: 'open-sans' }}>Recipes</Text> : 'Recipes'
 		}
 	},
 	[Tabs.FAVORITES]: {
@@ -81,7 +87,8 @@ const tabConfig = {
 		navigationOptions: {
 			tabBarLabel: 'Favorites',
 			tabBarIcon: tabInfo => <Ionicons name='ios-star' size={25} color={tabInfo.tintColor}></Ionicons>,
-			tabBarColor: Colors.primaryDark
+			tabBarColor: Colors.primaryDark,
+			tabBarLabel: isAndroid ? <Text style={{ fontFamily: 'open-sans' }}>Favorites</Text> : 'Recipes'
 		}
 	}
 };
@@ -93,7 +100,10 @@ const RecipeTabsNavigator = isAndroid
 	})
 	: createBottomTabNavigator(tabConfig, {
 		tabBarOptions: {
-			activeTintColor: Colors.secondary
+			activeTintColor: Colors.secondary,
+			labelStyle: {
+				fontFamily: 'open-sans'
+			}
 		}
 	});
 
@@ -112,14 +122,24 @@ const FilterNavigator = createStackNavigator(
 	}
 );
 
-const MainNavigator = createDrawerNavigator({
-	[Drawer.Recipes]: {
-		screen: RecipeTabsNavigator,
-		navigationOptions: {
-			drawerLabel: 'Recipes'
-		}
+const MainNavigator = createDrawerNavigator(
+	{
+		[Drawer.Recipes]: {
+			screen: RecipeTabsNavigator,
+			navigationOptions: {
+				drawerLabel: 'Recipes'
+			}
+		},
+		[Drawer.FILTERS]: FilterNavigator
 	},
-	[Drawer.FILTERS]: FilterNavigator
-});
+	{
+		contentOptions: {
+			activeTintColor: Colors.primary,
+			labelStyle: {
+				fontFamily: 'open-sans'
+			}
+		}
+	}
+);
 
 export default createAppContainer(MainNavigator);
