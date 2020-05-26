@@ -1,18 +1,33 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, ScrollView } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import { RECIPES } from './../data/data';
 import CustomHeaderButton from '../components/HeaderButton';
+import DefaultText from './../components/DefaultText';
+import Colors from './../constants/Colors';
+
+const ListItem = props => <View style={styles.listItem}><DefaultText>{props.children}</DefaultText></View>;
 
 const RecipeDetailsScreen = props => {
 	const recipeId = props.navigation.getParam('recipeId');
 	const seletedRecipe = RECIPES.find(recipe => recipe.id = recipeId);
 
 	return (
-		<View style={styles.screen}>
-			<Text>{seletedRecipe.title}</Text>
-		</View>
+		<ScrollView>
+			<Image source={{ uri: seletedRecipe.imageUrl }} style={styles.image}></Image>
+			<View>
+			</View>
+			<View style={styles.details}>
+				<DefaultText style={styles.recipeDetailText}>{seletedRecipe.duration}m</DefaultText>
+				<DefaultText style={styles.recipeDetailText}>{seletedRecipe.complexity.toUpperCase()}</DefaultText>
+				<DefaultText style={styles.recipeDetailText}>{seletedRecipe.affordability}</DefaultText>
+			</View>
+			<Text style={styles.title}>Ingredients</Text>
+			{seletedRecipe.ingridients.map((ingridient, index) => <ListItem key={index}>{ingridient}</ListItem>)}
+			<Text style={styles.title}>Steps</Text>
+			{seletedRecipe.steps.map((steps, index) => <ListItem key={index}>{steps}</ListItem>)}
+		</ScrollView>
 	);
 };
 
@@ -29,10 +44,26 @@ RecipeDetailsScreen.navigationOptions = navigationData => {
 }
 
 const styles = StyleSheet.create({
-	screen: {
-		flex: 1,
-		justifyContent: 'center',
-		alignContent: 'center'
+	image: {
+		width: '100%',
+		height: 200
+	},
+	details: {
+		flexDirection: 'row',
+		padding: 15,
+		justifyContent: 'space-around'
+	},
+	title: {
+		fontFamily: 'open-sans-bold',
+		fontSize: 22,
+		textAlign: 'center'
+	},
+	listItem: {
+		marginVertical: 10,
+		marginHorizontal: 20,
+		borderColor: '#bbb',
+		borderWidth: 1,
+		padding: 10
 	}
 });
 
