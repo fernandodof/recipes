@@ -1,17 +1,18 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet, ScrollView } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useSelector } from 'react-redux';
 
-import { RECIPES } from './../data/data';
 import CustomHeaderButton from '../components/HeaderButton';
 import DefaultText from './../components/DefaultText';
-import Colors from './../constants/Colors';
 
 const ListItem = props => <View style={styles.listItem}><DefaultText>{props.children}</DefaultText></View>;
 
 const RecipeDetailsScreen = props => {
+	const availableRecipes = useSelector(state => state.recipes.recipes);
+
 	const recipeId = props.navigation.getParam('recipeId');
-	const seletedRecipe = RECIPES.find(recipe => recipe.id = recipeId);
+	const seletedRecipe = availableRecipes.find(recipe => recipe.id = recipeId);
 
 	return (
 		<ScrollView>
@@ -32,11 +33,10 @@ const RecipeDetailsScreen = props => {
 };
 
 RecipeDetailsScreen.navigationOptions = navigationData => {
-	const recipeId = navigationData.navigation.getParam('recipeId');
-	const seletedRecipe = RECIPES.find(recipe => recipe.id = recipeId);
+	const seletedRecipeTitle = navigationData.navigation.getParam('recipeTitle');
 
 	return {
-		headerTitle: seletedRecipe.title,
+		headerTitle: seletedRecipeTitle,
 		headerRight: () => <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
 			<Item title='Favorite' iconName='ios-star-outline' onPress={() => console.log('Mark favorite')}></Item>
 		</HeaderButtons>

@@ -7,7 +7,7 @@ import Recipe from './Recipe';
 const RecipeList = props => {
 	const renderRecipe = itemData => (
 		<Recipe item={itemData.item}
-			onSelect={() => props.navigation.navigate(Screens.RECIPE_DETAILS, { recipeId: itemData.item.id })}>
+			onSelect={() => props.navigation.navigate(Screens.RECIPE_DETAILS, { recipeId: itemData.item.id, recipeTitle: itemData.item.title })}>
 		</Recipe>);
 
 	return (

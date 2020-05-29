@@ -3,11 +3,20 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { enableScreens } from 'react-native-screens';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
 
 import RecipesNavigator from './navigation/RecipesNavigator';
+import recipesReducer from './store/reducers/recipes';
 
 // Improves performace by using native optimized screen components
 enableScreens();
+
+const rootReducer = combineReducers({
+	recipes: recipesReducer
+});
+
+const store = createStore(rootReducer);
 
 const fetchFonts = () => Font.loadAsync({
 	'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
@@ -21,7 +30,7 @@ export default function App() {
 		return <AppLoading startAsync={fetchFonts} onFinish={() => setFontLoaded(true)}></AppLoading>
 	}
 
-	return <RecipesNavigator></RecipesNavigator>;
+	return <Provider store={store}><RecipesNavigator></RecipesNavigator></Provider>;
 }
 
 const styles = StyleSheet.create({
