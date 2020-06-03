@@ -12,7 +12,7 @@ const RecipeList = props => {
 
 	return (
 		<View style={styles.list}>
-			<FlatList data={props.listData} renderItem={renderRecipe}></FlatList>
+			<FlatList data={props.listData} renderItem={renderRecipe} keyExtractor={item => item.id}></FlatList>
 		</View>
 	);
 };
