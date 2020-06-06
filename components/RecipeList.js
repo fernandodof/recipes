@@ -1,14 +1,24 @@
 import React from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import Screens from './../navigation/screens';
 import Recipe from './Recipe';
 
 const RecipeList = props => {
-	const renderRecipe = itemData => (
-		<Recipe item={itemData.item}
-			onSelect={() => props.navigation.navigate(Screens.RECIPE_DETAILS, { recipeId: itemData.item.id, recipeTitle: itemData.item.title })}>
+	const favoriteRecipes = useSelector(state => state.recipes.favoriteRecipes);
+
+	const renderRecipe = itemData => {
+		const isFavorite = favoriteRecipes.some(recipe => recipe.id === itemData.item.id);
+
+		return (<Recipe item={itemData.item}
+			onSelect={() => props.navigation.navigate(Screens.RECIPE_DETAILS, {
+				recipeId: itemData.item.id,
+				recipeTitle: itemData.item.title,
+				isFavorite: isFavorite
+			})}>
 		</Recipe>);
+	}
 
 	return (
 		<View style={styles.list}>

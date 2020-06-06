@@ -1,5 +1,5 @@
 import { RECIPES } from './../../data/data';
-import { TOGGLE_FAVORITE } from '../actions/recipes';
+import { TOGGLE_FAVORITE, SET_FILTERS } from '../actions/recipes';
 
 const initialState = {
 	recipes: RECIPES,
@@ -26,7 +26,29 @@ const recipesReducer = (state = initialState, action) => {
 					favoriteRecipes: state.favoriteRecipes.concat(newFavorite)
 				};
 			}
-			break;
+		case SET_FILTERS:
+			const appliedFilters = action.filters;
+			const filteredRecipes = state.recipes.filter(recipe => {
+				if (appliedFilters.glutenFree && !recipe.isGlutenFree) {
+					return false;
+				}
+
+				if (appliedFilters.lactoseFree && !recipe.isLactoseFree) {
+					return false
+				}
+
+				if (appliedFilters.vegan && !recipe.isVegan) {
+					return false;
+				}
+
+				if (appliedFilters.vegetarian && !recipe.isVegetarian) {
+					return false;
+				}
+
+				return true;
+			});
+
+			return { ...state, filteredRecipes };
 		default:
 			return state;
 	}
